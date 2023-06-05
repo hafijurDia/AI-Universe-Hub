@@ -1,6 +1,15 @@
-#close{
-    position: absolute !important;
-    right: 0;
+section#spiner-load {
+    width: 100%;
+    background: #ffffffd1;
+    position: absolute;
     top: 0;
-    
-}
+    height: 100vh;
+  }
+  .spinner-border {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(50%, 50%); */
+  }
+  
