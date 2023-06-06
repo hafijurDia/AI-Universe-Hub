@@ -11,7 +11,6 @@ const loadTools = async(alldata) => {
 //display ai tools
 const displayAiTools = (tools,alldata) => {
     const toolswrap = document.getElementById('tool-wrap');
-    toolswrap.innerHTML = '';
     tools = tools;
     const showless = document.getElementById('show-less');
     const showMore = document.getElementById('show-more');
@@ -29,33 +28,32 @@ const displayAiTools = (tools,alldata) => {
         showless.classList.add('d-none');
         showMore.classList.remove('d-none');
     }
-    
-    console.log(tools);
+   
     tools.forEach(tool => {
         console.log(tool);
+        const lists = tool.features;
         const createCol = document.createElement('div');
         createCol.classList.add('col');
         createCol.innerHTML = `
         <div class="card">
-            <img src="https://i.blogs.es/7b41f4/google-bard/1366_2000.jpeg" class="card-img-top"
+            <img src="${tool.image}" class="card-img-top"
                 alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <ul>
-                    <li>Item one</li>
-                    <li>Item two</li>
-                    <li>Item three</li>
-                </ul>
+                <h5 class="card-title">Features</h5>
+                <ol type="1">
+                    <li>${lists[0]}</li>
+                    <li>${lists[1]}</li>
+                    <li>${lists[2]}</li>
+                </ol>
                 <hr>
                 <div class="d-flex justify-content-between">
                     <div class="">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">${tool.name}</h5>
                         <p class="mb-0"><span
-                                class="material-symbols-outlined align-bottom">calendar_today</span>
-                            12/06/2023</p>
+                                class="material-symbols-outlined align-bottom">calendar_today</span>${tool.published_in}</p>
                     </div>
                     <div class="align-self-center">
-                        <button type="button" class="border-0 bg-white" data-bs-toggle="modal"
+                        <button onclick="loadMoreId(${tool.id})" type="button" class="border-0 bg-white" data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop"><span
                                 class="material-symbols-outlined text-danger">arrow_circle_right</span></button>
                     </div>
@@ -80,6 +78,20 @@ const loadSpinner = (permission) => {
     else{
         spinner.classList.add('d-none');
     }
+}
+
+//load single tool in modal
+const loadMoreId = async(id) => {
+    const idnum = id;
+    const keepwith0 = String(idnum).padStart(2, '0');
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${keepwith0}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayMoreData(data);
+}
+//display single tool in modal
+const displayMoreData = (info) => {
+    
 }
 
 //show more event handler
