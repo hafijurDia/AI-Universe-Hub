@@ -130,7 +130,7 @@ const displayMoreData = (info) => {
 
     detailsWrap.innerHTML =  `
     <div class="col">
-    <div class="card" style="background-color: #eb575716;">
+    <div class="card equal-height" style="background-color: #eb575716;">
       <div class="card-body">
         <h5 class="card-title">${info.data.description}</h5>
         <div class="d-flex justify-content-around">
@@ -160,7 +160,7 @@ const displayMoreData = (info) => {
     </div>
   </div>
   <div class="col">
-    <div class="card">
+    <div class="card equal-height" style="height:100%">
     <span id="accuracy" class="accuracy">${floatToPercentage(info.data.accuracy.score)}</span>    
       <img src="${info.data.image_link[0]}" class="card-img-top" alt="...">
       <div class="card-body">
