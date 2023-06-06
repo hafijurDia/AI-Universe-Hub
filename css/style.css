@@ -1,0 +1,33 @@
+
+.d-flex button {
+  margin: 5px;
+  padding: 3px;
+}
+section#spiner-load {
+    width: 100%;
+    background: #ffffffd1;
+    position: absolute;
+    top: 0;
+    height: 100vh;
+  }
+  .spinner-border {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(50%, 50%); */
+  }
+ 
+.card{
+  position: relative;
+  width: 100%;
+}
+.accuracy {
+  position: absolute;
+  background: #ef3b3b;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 5px;
+  right: 5px;
+  top: 10px;
+}

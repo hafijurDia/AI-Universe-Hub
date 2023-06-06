@@ -38,7 +38,7 @@ const displayAiTools = (tools,alldata) => {
         createCol.classList.add('col');
         createCol.innerHTML = `
         <div class="card">
-            <img src="${tool.image}" class="card-img-top"
+            <img style="height:230px;" src="${tool.image}" class="card-img-top"
                 alt="...">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
@@ -69,6 +69,108 @@ const displayAiTools = (tools,alldata) => {
 
     });
 
+}
+
+//load single tool in modal
+const loadMoreId = async(id) => {
+    const idnum = id;
+    const keepwith0 = String(idnum).padStart(2, '0');
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${keepwith0}`;
+    console.log(url);
+    const res = await fetch(url);
+    const data = await res.json();
+    displayMoreData(data);
+}
+//display single tool in modal
+const displayMoreData = (info) => {
+    console.log(info.data);
+    const detailsWrap = document.getElementById('modal-wrap');
+    //modal title
+    document.getElementById('modal-title').innerText = info.data.tool_name;
+
+    //fetures  function
+    const features = info.data.features;
+    function featuresCall(){
+        let feature = "";
+        for (const key in features) {
+            if (features.hasOwnProperty(key)) {
+               feature = `
+               <li>${features[1].feature_name ? features[1].feature_name : 'No data'}</li>
+               <li>${features[2].feature_name ? features[2].feature_name : 'No data'}</li>
+               <li>${features[3].feature_name ? features[3].feature_name : 'No data'}</li>
+               `;
+            }
+          }
+          return feature;
+    }
+ 
+    //integration  function
+    const integrations = info.data.integrations;
+    function integrationCall(){
+        let integration = "";
+        for (const key in features) {
+            if (integrations.hasOwnProperty(key)) {
+                integration = `
+               <li>${integrations[0] ? integrations[0] : 'No data'}</li>
+               <li>${integrations[1] ? integrations[1] : 'No data'}</li>
+               <li>${integrations[2] ? integrations[2] : 'No data' }</li>
+               `;
+            }
+          }
+          return integration;
+    }
+    //accurancy percentage
+    function floatToPercentage(value) {
+        const percentage = (value * 100).toFixed(0); // Multiply by 100 and round to 2 decimal places
+        if (percentage == 0 ) {
+            return "No data found";
+        }
+        return percentage + "% acuuracy"; // Append "%" symbol
+      }
+
+    detailsWrap.innerHTML =  `
+    <div class="col">
+    <div class="card" style="background-color: #eb575716;">
+      <div class="card-body">
+        <h5 class="card-title">${info.data.description}</h5>
+        <div class="d-flex justify-content-around">
+          <button class="btn btn-light border border-danger">${info.data.pricing[0].plan ? info.data.pricing[0].plan : 'no data'}<br>${info.data.pricing[0].price ? info.data.pricing[0].price : 'no data'}</button>
+          <button class="btn btn-light border border-danger">${info.data.pricing[1].plan ? info.data.pricing[1].plan : 'no data'}<br>${info.data.pricing[1].price ? info.data.pricing[1].price : 'no data'}</button>
+          <button class="btn btn-light border border-danger">${info.data.pricing[2].plan ? info.data.pricing[2].plan : 'no data'}<br>${info.data.pricing[2].price ? info.data.pricing[2].price : 'no data'}</button>
+          
+  
+        </div>
+        <div>
+          <div class="d-flex justify-content-between mt-2">
+              <div>
+                  <h5>Features</h5>
+                  <ol type='1'>
+                    ${featuresCall()}
+                  </ol>
+              </div>
+              <div>
+                  <h5>Integrations</h5>
+                  <ol type="1">
+                      ${integrationCall()}
+                  </ol>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+    <span id="accuracy" class="accuracy">${floatToPercentage(info.data.accuracy.score)}</span>    
+      <img src="${info.data.image_link[0]}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title text-center">Hi, how are you doing today?</h5>
+        <p class="card-text text-center">I'm doing well, thank you for asking. How can I assist you today?</p>
+      </div>
+    </div>
+  </div>
+</div>
+    `
 }
 
 //spiner load
