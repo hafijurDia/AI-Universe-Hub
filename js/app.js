@@ -11,6 +11,7 @@ const loadTools = async(alldata) => {
 //display ai tools
 const displayAiTools = (tools,alldata) => {
     const toolswrap = document.getElementById('tool-wrap');
+    toolswrap.innerHTML = '';
     tools = tools;
     const showless = document.getElementById('show-less');
     const showMore = document.getElementById('show-more');
@@ -28,7 +29,8 @@ const displayAiTools = (tools,alldata) => {
         showless.classList.add('d-none');
         showMore.classList.remove('d-none');
     }
-   
+    
+    console.log(tools);
     tools.forEach(tool => {
         console.log(tool);
         const lists = tool.features;
@@ -78,20 +80,6 @@ const loadSpinner = (permission) => {
     else{
         spinner.classList.add('d-none');
     }
-}
-
-//load single tool in modal
-const loadMoreId = async(id) => {
-    const idnum = id;
-    const keepwith0 = String(idnum).padStart(2, '0');
-    const url = `https://openapi.programming-hero.com/api/ai/tool/${keepwith0}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayMoreData(data);
-}
-//display single tool in modal
-const displayMoreData = (info) => {
-    
 }
 
 //show more event handler
